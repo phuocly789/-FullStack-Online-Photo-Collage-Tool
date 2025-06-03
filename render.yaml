@@ -6,11 +6,10 @@ services:
     dockerfilePath: backend/Dockerfile
     region: oregon
     repo: https://github.com/phuocly789/-FullStack-Online-Photo-Collage-Tool
-    branch: main # Thay bằng nhánh bạn muốn triển khai
+    branch: main
     envVars:
       - key: PORT
-        value: 5000 # Port cho backend
-      # Thêm các biến môi trường khác nếu cần, ví dụ DATABASE_URL
+        value: 5000
 
   - type: web
     name: photo-collage-frontend
@@ -20,10 +19,10 @@ services:
     staticPublishPath: frontend/build
     region: oregon
     repo: https://github.com/phuocly789/-FullStack-Online-Photo-Collage-Tool
-    branch: main # Thay bằng nhánh bạn muốn triển khai
+    branch: main
     envVars:
       - key: REACT_APP_API_URL
-        value: https://photo-collage-backend.onrender.com # URL của backend, thay sau khi triển khai backend
+        value: https://photo-collage-backend.onrender.com
     buildFilter:
-      paths:
-        - frontend/**
+      - paths:
+          - frontend/**
