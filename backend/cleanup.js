@@ -1,8 +1,12 @@
 require('dotenv').config();
-const fs = require('fs').promises; // Dùng promises cho bất đồng bộ
+const fs = require('fs').promises;
 const path = require('path');
 
 const uploadDir = process.env.UPLOAD_DIR || '/app/uploads';
+const isTest = process.env.NODE_ENV === 'test';
+
+console.log = isTest ? () => {} : console.log;
+console.error = isTest ? () => {} : console.error;
 
 setInterval(async () => {
   try {

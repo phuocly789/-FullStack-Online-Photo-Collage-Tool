@@ -9,7 +9,12 @@ const REDIS_URL = process.env.REDIS_URL || 'redis://redis:6379';
 
 const queue = new Queue('image-processing', REDIS_URL);
 
-queue.process(async job => {
+const isTest = process.env.NODE_ENV === 'test';
+console.log = isTest ? () => {} : console.log;
+console.error = isTest ? () => {} : console.error;
+
+// Tách logic xử lý công việc thành một hàm riêng
+const processJob = async (job) => {
   try {
     console.log('Processing job:', job.id, job.data);
     const { files, layout, border_width, border_color } = job.data;
@@ -107,7 +112,10 @@ queue.process(async job => {
     console.error('Error in worker:', error.message, error.stack);
     throw error;
   }
-});
+};
+
+// Đăng ký worker với queue
+queue.process(processJob);
 
 queue.on('error', error => {
   console.error('Queue error:', error);
@@ -123,3 +131,6 @@ queue.on('failed', (job, error) => {
 });
 
 console.log('Worker started');
+
+// Export hàm processJob để test
+module.exports = { processJob };
