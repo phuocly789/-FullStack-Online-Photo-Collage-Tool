@@ -1,3 +1,22 @@
+# services:
+#   - type: web
+#     name: photo-collage-backend
+#     env: docker
+#     plan: free
+#     dockerfilePath: backend/Dockerfile
+#     buildCommand: ""
+#     startCommand: ""
+#     region: oregon
+
+#   - type: web
+#     name: photo-collage-frontend
+#     env: static
+#     plan: free
+#     buildCommand: npm install && npm run build
+#     staticPublishPath: build
+#     buildFilter:
+#       paths:
+#         - frontend/**
 services:
   - type: web
     name: photo-collage-backend
@@ -17,4 +36,3 @@ services:
     buildFilter:
       paths:
         - frontend/**
-    region: oregon
