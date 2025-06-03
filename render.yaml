@@ -5,7 +5,7 @@ services:
     plan: free
     dockerfilePath: backend/Dockerfile
     region: oregon
-    repo: https://github.com/phuocly789/-FullStack-Online-Photo-Collage-Tool
+    repo: https://github.com/phuocly789/FullStack-Online-Photo-Collage-Tool
     branch: main
     envVars:
       - key: PORT
@@ -18,11 +18,11 @@ services:
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: frontend/build
     region: oregon
-    repo: https://github.com/phuocly789/-FullStack-Online-Photo-Collage-Tool
+    repo: https://github.com/phuocly789/FullStack-Online-Photo-Collage-Tool
     branch: main
     envVars:
       - key: REACT_APP_API_URL
         value: https://photo-collage-backend.onrender.com
     buildFilter:
-      - paths:
-          - frontend/**
+      paths:
+        - frontend/**
