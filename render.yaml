@@ -8,7 +8,7 @@ services:
     startCommand: ""
     region: oregon
 
-  - type: static
+  - type: web
     name: photo-collage-frontend
     env: static
     buildCommand: npm install && npm run build
