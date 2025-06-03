@@ -4,15 +4,15 @@ services:
     env: docker
     plan: free
     dockerfilePath: backend/Dockerfile
-    buildCommand: ""
-    startCommand: ""
     region: oregon
 
   - type: web
     name: photo-collage-frontend
     env: static
+    plan: free
     buildCommand: npm install && npm run build
-    staticPublishPath: build
+    staticPublishPath: frontend/build
+    region: oregon
     buildFilter:
       paths:
         - frontend/**
