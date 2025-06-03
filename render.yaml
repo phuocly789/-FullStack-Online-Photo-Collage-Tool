@@ -1,8 +1,20 @@
 services:
   - type: web
-    name: photo-collage-tool
+    name: photo-collage-backend
     env: docker
     plan: free
-    dockerComposeFilePath: docker-compose.yml
-    dockerContext: .
-    region: oregon  # hoặc frankfurt
+    dockerfilePath: backend/Dockerfile
+    buildCommand: ""
+    startCommand: ""
+    region: oregon
+
+  - type: web
+    name: photo-collage-frontend
+    env: static
+    plan: free
+    buildCommand: npm install && npm run build
+    staticPublishPath: build
+    buildFilter:
+      paths:
+        - frontend/**
+    region: oregon
