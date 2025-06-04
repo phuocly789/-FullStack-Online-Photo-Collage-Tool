@@ -11,7 +11,7 @@ function App() {
   const [status, setStatus] = useState(null);
   const [collageUrl, setCollageUrl] = useState(null);
   const [errorDetails, setErrorDetails] = useState(null);
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   const handleUpload = async (e) => {
     e.preventDefault();
     if (images.length === 0) {
@@ -28,7 +28,7 @@ function App() {
 
     try {
       setStatus('waiting');
-      const res = await axios.post('https://fullstack-online-photo-collage-tool-2.onrender.com/api/create-task', formData, {
+      const res = await axios.post(`${apiUrl}/api/create-task`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         timeout: 60000,
       });
@@ -42,11 +42,11 @@ function App() {
   const checkStatus = async (id) => {
     const interval = setInterval(async () => {
       try {
-        const res = await axios.get(`https://fullstack-online-photo-collage-tool-2.onrender.com/api/check-status?id=${id}`);
+        const res = await axios.get(`${apiUrl}/api/check-status?id=${id}`);
         setStatus(res.data.status);
         if (res.data.status === 'DONE') {
           clearInterval(interval);
-          const collageRes = await axios.get(`https://fullstack-online-photo-collage-tool-2.onrender.com/api/get-collage?id=${res.data.collage_id}`, {
+          const collageRes = await axios.get(`${apiUrl}/api/get-collage?id=${res.data.collage_id}`, {
             responseType: 'blob',
           });
           setCollageUrl(URL.createObjectURL(collageRes.data));
