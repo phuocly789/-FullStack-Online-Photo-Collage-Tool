@@ -7,7 +7,7 @@ const fs = require('fs');
 const cors = require('cors');
 
 const app = express();
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'https://full-stack-online-photo-collage-too-two.vercel.app' }));
 app.use(express.json());
 
 const UPLOAD_DIR = process.env.UPLOAD_DIR || '/app/uploads';
