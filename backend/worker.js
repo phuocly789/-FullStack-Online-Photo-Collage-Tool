@@ -13,6 +13,16 @@ const isTest = process.env.NODE_ENV === 'test';
 console.log = isTest ? () => {} : console.log;
 console.error = isTest ? () => {} : console.error;
 
+// Tạo thư mục UPLOAD_DIR nếu chưa tồn tại
+(async () => {
+  try {
+    await fs.mkdir(UPLOAD_DIR, { recursive: true });
+    console.log(`Upload directory ensured: ${UPLOAD_DIR}`);
+  } catch (err) {
+    console.error('Error creating upload directory:', err);
+  }
+})();
+
 // Tách logic xử lý công việc thành một hàm riêng
 const processJob = async (job) => {
   try {
@@ -57,7 +67,6 @@ const processJob = async (job) => {
         composites.push({ input: img.data, left: Math.round(x), top: border_width });
         x += img.info.width + border_width;
       }
-      console.log('Compositing all images:', composites);
       await result.composite(composites);
     } else {
       const minWidth = Math.min(...images.map(img => img.info.width));
@@ -88,14 +97,13 @@ const processJob = async (job) => {
         composites.push({ input: img.data, left: border_width, top: Math.round(y) });
         y += img.info.height + border_width;
       }
-      console.log('Compositing all images:', composites);
       await result.composite(composites);
     }
 
     const outputPath = path.join(UPLOAD_DIR, `collage_${job.id}.png`);
     console.log('Saving collage to:', outputPath);
     await result.png().toFile(outputPath);
-    console.log('Collage saved');
+    console.log('Collage saved successfully:', outputPath);
 
     for (const file of files) {
       try {
@@ -106,7 +114,6 @@ const processJob = async (job) => {
       }
     }
 
-    console.log('Returning job.id:', job.id);
     return job.id;
   } catch (error) {
     console.error('Error in worker:', error.message, error.stack);
