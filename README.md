@@ -86,3 +86,18 @@ sequenceDiagram
     Frontend->>Backend: GET /get-collage?id
     Backend-->>Frontend: Trả về ảnh kết quả
     Frontend->>User: Hiển thị & tải ảnh collage
+
+---
+## 🚀 Cách chạy dự án
+
+### ✅ Sử dụng Docker
+> Yêu cầu: [Docker](https://www.docker.com/) và [Docker Compose](https://docs.docker.com/compose/)
+
+```bash
+
+# Build và chạy
+docker-compose up --build
+
+# Truy cập:
+🖥 Frontend: http://localhost:3000
+🔧 Backend API: http://localhost:5000
