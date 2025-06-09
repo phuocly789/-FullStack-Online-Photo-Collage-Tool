@@ -71,15 +71,15 @@ Tạo file `.env` trong cả frontend và backend.
 REDIS_URL=redis://localhost:6379/0
 UPLOAD_FOLDER=./uploads
 RESULT_FOLDER=./results
-
+```
 #### frontend/.env
 ```plaintext
 REACT_APP_API_URL=http://localhost:5000
-
+```
 ### Chạy với docker
 ```plaintext
 docker-compose up --build
-
+```
 ### Truy cập
 🖥 Frontend: http://localhost:3000
 🔧 Backend API: http://localhost:5000
