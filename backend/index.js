@@ -7,10 +7,10 @@ const fs = require('fs').promises;
 const path = require('path');
 
 const app = express();
-app.use(cors({ origin: 'https://full-stack-online-photo-collage-too-two.vercel.app' }));
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
 
-const UPLOAD_DIR = process.env.UPLOAD_DIR || '/tmp/uploads';
+const UPLOAD_DIR = process.env.UPLOAD_DIR || '/app/uploads';
 const REDIS_URL = process.env.REDIS_URL || 'redis://redis:6379';
 
 const upload = multer({
