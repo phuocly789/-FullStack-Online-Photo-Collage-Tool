@@ -81,6 +81,6 @@ REACT_APP_API_URL=http://localhost:5000
 docker-compose up --build
 ```
 ### Truy cập
-🖥 Frontend: http://localhost:3000
-🔧 Backend API: http://localhost:5000
+- 🖥 Frontend: http://localhost:3000
+- 🔧 Backend API: http://localhost:5000
 
