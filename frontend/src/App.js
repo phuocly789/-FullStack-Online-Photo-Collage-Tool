@@ -14,13 +14,17 @@ function App() {
   const apiUrl = process.env.REACT_APP_API_URL;
   const handleUpload = async (e) => {
     e.preventDefault();
-    if (borderWidth === '' || isNaN(borderWidth) || Number(borderWidth) < 0) {
+    // Kiểm tra giới hạn borderWidth (0 đến 200)
+    const minBorder = 0;
+    const maxBorder = 200;
+    const borderValue = Number(borderWidth);
+    if (borderValue === '' || isNaN(borderValue) || borderValue < minBorder || borderValue > maxBorder) {
       setStatus('ERROR');
-      setErrorDetails('Boder cannot be empty ( < 0 )');
+      setErrorDetails(`Border must be between ${minBorder} and ${maxBorder}`);
       return;
     }
-    
-   
+
+
     if (images.length === 0) {
       setStatus('ERROR');
       setErrorDetails('No images selected');
