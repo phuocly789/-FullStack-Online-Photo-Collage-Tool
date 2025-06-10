@@ -7,7 +7,12 @@ const fs = require('fs').promises;
 const path = require('path');
 
 const app = express();
-app.use(cors({ origin: 'http://54.206.215.123:3000/' }));
+app.use(cors({
+  origin: 'localhost:3000', // Cho phép domain của frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Các phương thức được phép
+  allowedHeaders: ['Content-Type', 'Authorization'], // Các header được phép
+  credentials: true // Cho phép gửi cookie nếu cần
+}));
 app.use(express.json());
 
 const UPLOAD_DIR = process.env.UPLOAD_DIR || '/app/uploads';
