@@ -46,38 +46,35 @@ function App() {
       console.log('Response:', res.data);
       checkStatus(res.data.task_id);
     } catch (error) {
-      console.error('Axios error:', error.response?.data || error.message);
+      
       setStatus('ERROR');
       setErrorDetails(error.response?.data?.details || error.message);
     }
   };
 
-  const checkStatus = async (taskId, maxAttempts = 30, attempt = 0) => {
-    if (attempt >= maxAttempts) {
-      setStatus('ERROR');
-      setErrorDetails('Timeout: Max attempts reached');
-      return;
-    }
-    try {
-      const res = await axios.get(`${apiUrl}/api/check-status?id=${taskId}`, { timeout: 5000 });
-      console.log('Check status response:', res.data);
-      if (res.data.status === 'DONE') {
-        setStatus('DONE');
-        setCollageId(res.data.collage_id);
-      } else if (res.data.status === 'ERROR' || res.data.status === 'NOT_FOUND') {
+  const checkStatus = async (id) => {
+    const interval = setInterval(async () => {
+      try {
+        const res = await axios.get(`${apiUrl}/api/check-status?id=${id}`);
         setStatus(res.data.status);
-        setErrorDetails(res.data.message || 'Unknown error');
-      } else if (res.data.status) {
-        setStatus(res.data.status);
-        setTimeout(() => checkStatus(taskId, maxAttempts, attempt + 1), 2000);
-      } else {
-        throw new Error('Invalid status response');
+        if (res.data.status === 'DONE') {
+          clearInterval(interval);
+          const collageRes = await axios.get(`${apiUrl}/api/get-collage?id=${res.data.collage_id}`, {
+            responseType: 'blob',
+          });
+          setCollageUrl(URL.createObjectURL(collageRes.data));
+          setErrorDetails(null);
+        } else if (res.data.status === 'failed' || res.data.status === 'NOT_FOUND') {
+          clearInterval(interval);
+          setStatus('ERROR');
+          setErrorDetails('Task failed or not found');
+        }
+      } catch (error) {
+        setStatus('ERROR');
+        setErrorDetails(error.response?.data?.message || error.message);
+        clearInterval(interval);
       }
-    } catch (error) {
-      console.error('Check status error:', error.message);
-      setStatus('ERROR');
-      setErrorDetails(error.message);
-    }
+    }, 1000);
   };
 
   const removeImage = (indexToRemove) => {
