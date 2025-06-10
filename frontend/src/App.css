@@ -1,4 +1,4 @@
-
+/* Reset và kiểu cơ bản */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -15,7 +15,6 @@
   background-color: #f5f7fb;
   min-height: 100vh;
 }
-
 
 .upload-panel {
   width: 300px;
@@ -72,7 +71,6 @@ input[type="file"] {
   margin-top: 4px;
 }
 
-
 .remove-btn {
   background: none;
   border: none;
@@ -86,8 +84,6 @@ input[type="file"] {
 .remove-btn:hover {
   color: #a00;
 }
-
-
 
 .radio-group,
 .border-input,
@@ -120,7 +116,6 @@ input[type="file"] {
 .make-collage-btn:hover {
   background-color: #3367d6;
 }
-
 
 .preview-panel {
   flex: 1;
@@ -165,4 +160,102 @@ input[type="file"] {
 
 .download-btn:hover {
   background-color: #388e3c;
+}
+
+/* Media query cho mobile (dưới 768px) */
+@media (max-width: 767px) {
+  .app-container {
+    flex-direction: column; /* Chuyển sang cột trên mobile */
+    align-items: center;
+    gap: 16px; /* Giảm khoảng cách */
+    padding: 16px; /* Giảm padding */
+  }
+
+  .upload-panel {
+    width: 100%; /* Full width trên mobile */
+    max-width: 300px; /* Giới hạn tối đa */
+    padding: 16px; /* Giảm padding */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Giảm bóng */
+  }
+
+  .upload-panel h3 {
+    font-size: 18px; /* Giảm kích thước font */
+    margin-bottom: 12px; /* Giảm khoảng cách */
+  }
+
+  input[type="file"] {
+    margin-bottom: 12px; /* Giảm khoảng cách */
+  }
+
+  .image-list {
+    margin-bottom: 12px; /* Giảm khoảng cách */
+  }
+
+  .image-item {
+    gap: 6px; /* Giảm khoảng cách giữa các phần tử */
+    margin-bottom: 6px;
+    padding: 6px;
+    border-radius: 6px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1); /* Giảm bóng khi hover */
+  }
+
+  .image-thumb {
+    width: 24px; /* Giảm kích thước ảnh thumbnail */
+    height: 24px;
+  }
+
+  .image-name {
+    max-width: 80px; /* Giảm độ rộng */
+    font-size: 10px; /* Giảm kích thước font */
+  }
+
+  .remove-btn {
+    font-size: 16px; /* Giảm kích thước nút xóa */
+  }
+
+  .radio-group,
+  .border-input,
+  .color-input {
+    margin-bottom: 12px; /* Giảm khoảng cách */
+  }
+
+  .border-input input,
+  .color-input input[type="color"] {
+    margin-left: 6px; /* Giảm khoảng cách */
+    width: 60px; /* Giới hạn độ rộng input */
+  }
+
+  .color-input span {
+    font-size: 12px; /* Giảm kích thước font */
+  }
+
+  .make-collage-btn {
+    padding: 8px 0; /* Giảm padding */
+    font-size: 14px; /* Giảm kích thước font */
+    border-radius: 6px; /* Giảm radius */
+  }
+
+  .preview-panel {
+    width: 100%; /* Full width trên mobile */
+    max-width: 400px; /* Giới hạn tối đa */
+    padding: 16px; /* Giảm padding */
+    min-height: 200px; /* Giảm chiều cao tối thiểu */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Giảm bóng */
+  }
+
+  .status-message {
+    font-size: 14px; /* Giảm kích thước font */
+  }
+
+  .collage-image {
+    border-radius: 8px; /* Giảm radius */
+    margin-bottom: 12px; /* Giảm khoảng cách */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Giảm bóng */
+  }
+
+  .download-btn {
+    padding: 8px 16px; /* Giảm padding */
+    font-size: 14px; /* Giảm kích thước font */
+    border-radius: 6px; /* Giảm radius */
+  }
 }

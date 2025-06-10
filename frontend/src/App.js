@@ -6,7 +6,7 @@ import './App.css';
 function App() {
   const [images, setImages] = useState([]);
   const [layout, setLayout] = useState('horizontal');
-  const [borderWidth, setBorderWidth] = useState(12);
+  const [borderWidth, setBorderWidth] = useState(0);
   const [borderColor, setBorderColor] = useState('#ffffff');
   const [status, setStatus] = useState(null);
   const [collageUrl, setCollageUrl] = useState(null);
@@ -14,6 +14,13 @@ function App() {
   const apiUrl = process.env.REACT_APP_API_URL;
   const handleUpload = async (e) => {
     e.preventDefault();
+    if (borderWidth === '' || isNaN(borderWidth) || Number(borderWidth) < 0) {
+      setStatus('ERROR');
+      setErrorDetails('Boder cannot be empty ( < 0 )');
+      return;
+    }
+    
+   
     if (images.length === 0) {
       setStatus('ERROR');
       setErrorDetails('No images selected');
@@ -23,7 +30,7 @@ function App() {
     const formData = new FormData();
     images.forEach((img) => formData.append('images', img));
     formData.append('layout', layout);
-    formData.append('border_width', parseInt(borderWidth) || 0);
+    formData.append('border_width', parseInt(borderWidth));
     formData.append('border_color', borderColor);
 
     try {
@@ -138,6 +145,7 @@ function App() {
             value={borderWidth}
             onChange={(e) => setBorderWidth(e.target.value)}
             min="0"
+            required
           /> px
         </div>
 
