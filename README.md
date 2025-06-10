@@ -57,32 +57,30 @@ Dự án gồm 4 phần chính:
 - Hiển thị ảnh kết quả và tải xuống
 
 ---
+## 🚀 Cách chạy dự án
 
-## 🔄 Quy trình hoạt động
+### Yêu cầu
+- [Docker](https://www.docker.com/) và [Docker Compose](https://docs.docker.com/compose/) (cho phương án dùng Docker)
+- Node.js, Python, Redis (cho phương án không dùng Docker)
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant Frontend
-    participant Backend
-    participant Celery
-    participant Storage
+### Cấu hình `.env`
+Tạo file `.env` trong cả frontend và backend.
 
-    User->>Frontend: Upload ảnh & chọn tuỳ chọn
-    Frontend->>Backend: Gửi request /create-task
-    Backend->>Storage: Lưu ảnh tạm
-    Backend->>Celery: Tạo task xử lý ảnh
-    Backend-->>Frontend: Trả về task_id
+#### backend/.env
+```plaintext
+REDIS_URL=redis://localhost:6379/0
+UPLOAD_FOLDER=./uploads
+RESULT_FOLDER=./results
+```
+#### frontend/.env
+```plaintext
+REACT_APP_API_URL=http://localhost:5000
+```
+### Chạy với docker
+```plaintext
+docker-compose up --build
+```
+### Truy cập
+- 🖥 Frontend: http://localhost:3000
+- 🔧 Backend API: http://localhost:5000
 
-    loop Kiểm tra trạng thái
-        Frontend->>Backend: GET /check-status?task_id
-        Backend-->>Frontend: Status: PENDING / DONE
-    end
-
-    Celery->>Storage: Resize & ghép ảnh
-    Celery-->>Storage: Lưu ảnh kết quả
-    Celery-->>Backend: Task DONE
-
-    Frontend->>Backend: GET /get-collage?id
-    Backend-->>Frontend: Trả về ảnh kết quả
-    Frontend->>User: Hiển thị & tải ảnh collage
