@@ -7,7 +7,7 @@ const fs = require('fs').promises;
 const path = require('path');
 
 const app = express();
-app.use(cors({ origin: 'http://frontend:3000' }));
+app.use(cors({ origin: 'http://54.206.215.123:3000/' }));
 app.use(express.json());
 
 const UPLOAD_DIR = process.env.UPLOAD_DIR || '/app/uploads';
