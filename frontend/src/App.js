@@ -18,11 +18,12 @@ function App() {
     const minBorder = 0;
     const maxBorder = 200;
     const borderValue = Number(borderWidth);
-    if (borderValue === '' || isNaN(borderValue) || borderValue < minBorder || borderValue > maxBorder) {
+    if (String(borderWidth).trim() === '' || isNaN(borderValue) || borderValue < minBorder || borderValue > maxBorder) {
       setStatus('ERROR');
       setErrorDetails(`Border must be between ${minBorder} and ${maxBorder}`);
       return;
     }
+    
 
 
     if (images.length === 0) {
@@ -43,10 +44,8 @@ function App() {
         headers: { 'Content-Type': 'multipart/form-data' },
         timeout: 60000,
       });
-      console.log('Response:', res.data);
       checkStatus(res.data.task_id);
     } catch (error) {
-      
       setStatus('ERROR');
       setErrorDetails(error.response?.data?.details || error.message);
     }
