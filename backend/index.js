@@ -13,6 +13,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'], // Các header được phép
   credentials: true // Cho phép gửi cookie nếu cần
 }));
+app.options('/api/create-task', cors());
 app.use(express.json());
 
 const UPLOAD_DIR = process.env.UPLOAD_DIR || '/app/uploads';
@@ -54,6 +55,9 @@ async function startServer() {
           border_width: parseInt(req.body.border_width) || 0,
           border_color: req.body.border_color || '#ffffff'
         });
+        if (!job || !job.id) {
+          throw new Error('Failed to create job in queue');
+        }
         res.json({ task_id: job.id });
       } catch (error) {
         console.error('Error in create-task:', error.message, error.stack);

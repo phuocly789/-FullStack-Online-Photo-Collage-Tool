@@ -43,8 +43,10 @@ function App() {
         headers: { 'Content-Type': 'multipart/form-data' },
         timeout: 60000,
       });
+      console.log('Response:', res.data);
       checkStatus(res.data.task_id);
     } catch (error) {
+      console.error('Axios error:', error.response?.data || error.message);
       setStatus('ERROR');
       setErrorDetails(error.response?.data?.details || error.message);
     }
