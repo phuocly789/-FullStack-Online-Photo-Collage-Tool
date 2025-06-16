@@ -8,8 +8,7 @@ const path = require('path');
 
 const app = express();
 app.use(cors({
-  // origin: 'https://full-stack-online-photo-collage-too-two.vercel.app', // Cho phép domain của frontend
-  origin: 'http://localhost:3000', // Cho phép domain của frontend
+  origin: 'https://full-stack-online-photo-collage-too-two.vercel.app', // Cho phép domain của frontend
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Các phương thức được phép
   allowedHeaders: ['Content-Type', 'Authorization'], // Các header được phép
   credentials: true // Cho phép gửi cookie nếu cần
