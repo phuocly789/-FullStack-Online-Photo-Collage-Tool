@@ -1,7 +1,7 @@
 # 📸 Online Photo Collage Tool
 
-> Người Thực Hiện: **Lý Minh Phước**
-> 🛠️ Dự án: Công cụ ghép ảnh trực tuyến
+> Người Thực Hiện: **Lý Minh Phước**  
+> 🛠️ Dự án: Công cụ ghép ảnh trực tuyến  
 > Link Deploy: https://full-stack-online-photo-collage-too-two.vercel.app
 ---
 
